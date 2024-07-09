@@ -28,10 +28,12 @@
 }
 
 .verticalSplit {
-    width: 100%;
+    width: 50%;
+    flex: 0 0 50%;
 }
 
 .codeMirrorPanel {
+    width: 50%;
     flex: 0 0 50%;
 }
 
