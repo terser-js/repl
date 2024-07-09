@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { debounce, cloneDeep } from 'lodash-es';
+import cx from 'classnames';
 
 import CodeMirrorPanel from './CodeMirrorPanel';
 import { getCodeSizeInBytes } from './lib/helpers';
@@ -27,39 +28,33 @@ class Repl extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <div className={styles.wrapperPanels}>
-          <div className={styles.panels}>
-            <div className={styles.verticalSplit}>
-              <CodeMirrorPanel
-                className={styles.codeMirrorPanelOptions}
-                code={this.state.optionsCode}
-                onChange={this._updateTerserOptions}
-                options={{ lineWrapping: true }}
-                theme="paraiso-light"
-                errorMessage={this.state.optionsErrorMessage}
-                placeholder="Edit terser config here"
-              />
-              <CodeMirrorPanel
-                className={styles.codeMirrorPanelInput}
-                code={this.state.code}
-                onChange={this._updateCode}
-                options={this.options}
-                fileSize={this.state.rawSize}
-                theme="paraiso-light"
-                errorMessage={this.state.errorMessage}
-                placeholder="Write or paste code here"
-              />
-            </div>
-            <CodeMirrorPanel
-              className={styles.codeMirrorPanel}
-              code={this.state.minified}
-              options={this.options}
-              fileSize={this.state.minifiedSize}
-              theme="paraiso-dark"
-              placeholder="Terser output will be shown here"
-            />
-          </div>
-        </div>
+        <CodeMirrorPanel
+          className={cx(styles.panel, styles.panelOptions)}
+          code={this.state.optionsCode}
+          onChange={this._updateTerserOptions}
+          options={{ lineWrapping: true }}
+          theme="paraiso-light"
+          errorMessage={this.state.optionsErrorMessage}
+          placeholder="Edit terser config here"
+        />
+        <CodeMirrorPanel
+          className={cx(styles.panel, styles.panelInput)}
+          code={this.state.code}
+          onChange={this._updateCode}
+          options={this.options}
+          fileSize={this.state.rawSize}
+          theme="paraiso-light"
+          errorMessage={this.state.errorMessage}
+          placeholder="Write or paste code here"
+        />
+        <CodeMirrorPanel
+          className={cx(styles.panel, styles.panelOutput)}
+          code={this.state.minified}
+          options={this.options}
+          fileSize={this.state.minifiedSize}
+          theme="paraiso-dark"
+          placeholder="Terser output will be shown here"
+        />
       </div>
     );
   }
